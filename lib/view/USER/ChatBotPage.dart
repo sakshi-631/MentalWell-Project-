@@ -1,7 +1,5 @@
-
 import 'package:flutter/material.dart';
 import 'package:mentalwellapp/view/WIDGETS/background.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class ChatBotPage extends StatelessWidget {
   const ChatBotPage({super.key});
@@ -14,9 +12,7 @@ class ChatBotPage extends StatelessWidget {
         // Default back button will appear automatically
       ),
       body: const Background(
-        child: Center(
-          child: Text("🤖 Hi! How can I help you?"),
-        ),
+        child: Center(child: Text("🤖 Hi! How can I help you?")),
       ),
     );
   }

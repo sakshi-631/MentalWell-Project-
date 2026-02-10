@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -13,9 +12,9 @@ class EmergencyPage extends StatelessWidget {
   }
 
   void _showComingSoon(BuildContext context, String feature) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text("$feature coming soon 🚀")),
-    );
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(SnackBar(content: Text("$feature coming soon 🚀")));
   }
 
   @override
@@ -56,7 +55,7 @@ class EmergencyPage extends StatelessWidget {
                       color: Colors.red.withOpacity(0.4),
                       blurRadius: 20,
                       spreadRadius: 5,
-                    )
+                    ),
                   ],
                 ),
                 child: const Center(
@@ -189,10 +188,7 @@ class EmergencyPage extends StatelessWidget {
             const SizedBox(height: 10),
             Text(
               label,
-              style: TextStyle(
-                fontWeight: FontWeight.w600,
-                color: color,
-              ),
+              style: TextStyle(fontWeight: FontWeight.w600, color: color),
             ),
           ],
         ),
@@ -234,7 +230,6 @@ class _QuickActionButton extends StatelessWidget {
   final VoidCallback onTap;
 
   const _QuickActionButton({
-    super.key,
     required this.icon,
     required this.label,
     required this.color,
@@ -259,7 +254,7 @@ class _QuickActionButton extends StatelessWidget {
           Text(
             label,
             style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
-          )
+          ),
         ],
       ),
     );

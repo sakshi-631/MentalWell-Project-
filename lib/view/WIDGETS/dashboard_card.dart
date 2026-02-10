@@ -10,7 +10,6 @@ class _DashboardCard extends StatelessWidget {
     required this.title,
     required this.value,
     required this.icon,
-    super.key,
   });
 
   @override
@@ -29,9 +28,10 @@ class _DashboardCard extends StatelessWidget {
             Text(
               value,
               style: TextStyle(
-                  fontSize: width < 500 ? 15 : 22,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black),
+                fontSize: width < 500 ? 15 : 22,
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
+              ),
             ),
             SizedBox(height: width < 500 ? 3 : 6),
             Text(title, style: TextStyle(fontSize: width < 500 ? 10 : 14)),

@@ -126,28 +126,6 @@
 //   }
 // }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:mentalwellapp/view/ADMIN/contentmanagement_page.dart';
@@ -160,8 +138,6 @@ import 'package:mentalwellapp/view/ADMIN/usermanagement_page.dart';
 import 'package:mentalwellapp/view/LoginPage.dart'; // ✅ Import LoginPage
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:mentalwellapp/controller/LoginController.dart';
-import 'package:mentalwellapp/view/LoginPage.dart';
-
 
 class AdminHomePage extends StatefulWidget {
   final String username;
@@ -184,22 +160,21 @@ class AdminHomePage extends StatefulWidget {
 class _AdminHomePageState extends State<AdminHomePage> {
   int _selectedIndex = 0;
   Future<void> handleLogout(BuildContext context) async {
-  final loginController = LoginController();
+    final loginController = LoginController();
 
-  // Sign out from Firebase
-  await FirebaseAuth.instance.signOut();
+    // Sign out from Firebase
+    await FirebaseAuth.instance.signOut();
 
-  // Clear saved login data
-  await loginController.clearSharedPref();
+    // Clear saved login data
+    await loginController.clearSharedPref();
 
-  // Navigate back to LoginPage
-  Navigator.pushAndRemoveUntil(
-    context,
-    MaterialPageRoute(builder: (_) => const LoginPage()),
-    (route) => false,
-  );
-}
-
+    // Navigate back to LoginPage
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (_) => const LoginPage()),
+      (route) => false,
+    );
+  }
 
   final List<String> _drawerTitles = [
     "Dashboard",
@@ -268,8 +243,11 @@ class _AdminHomePageState extends State<AdminHomePage> {
                   ? FileImage(widget.profileImage!)
                   : null,
               child: widget.profileImage == null
-                  ? const Icon(Icons.admin_panel_settings,
-                      size: 40, color: Colors.teal)
+                  ? const Icon(
+                      Icons.admin_panel_settings,
+                      size: 40,
+                      color: Colors.teal,
+                    )
                   : null,
             ),
             decoration: const BoxDecoration(color: Colors.teal),
@@ -281,17 +259,17 @@ class _AdminHomePageState extends State<AdminHomePage> {
               itemCount: _drawerTitles.length,
               itemBuilder: (context, i) {
                 return ListTile(
-                  leading: Icon(_drawerIcons[i],
-                      color:
-                          _selectedIndex == i ? Colors.teal : Colors.black54),
+                  leading: Icon(
+                    _drawerIcons[i],
+                    color: _selectedIndex == i ? Colors.teal : Colors.black54,
+                  ),
                   title: Text(
                     _drawerTitles[i],
                     style: TextStyle(
                       fontWeight: _selectedIndex == i
                           ? FontWeight.bold
                           : FontWeight.normal,
-                      color:
-                          _selectedIndex == i ? Colors.teal : Colors.black87,
+                      color: _selectedIndex == i ? Colors.teal : Colors.black87,
                     ),
                   ),
                   selected: _selectedIndex == i,
@@ -308,38 +286,36 @@ class _AdminHomePageState extends State<AdminHomePage> {
 
           // ✅ Logout Button (Added at bottom)
           const Divider(height: 1),
-//           ListTile(
-//             leading: const Icon(Icons.logout, color: Colors.redAccent),
-//             title: const Text(
-//               "Logout",
-//               style: TextStyle(color: Colors.redAccent, fontWeight: FontWeight.bold),
-//             ),
-// //            onTap: () {
-// //   Navigator.pushAndRemoveUntil(
-// //     context,
-// //     MaterialPageRoute(builder: (context) => const LoginPage()),
-// //     (route) => false,
-// //   );
-// // },
-// onTap: () {
-//   Navigator.pop(context); // Close the drawer first
-//   Navigator.of(context, rootNavigator: true).pushAndRemoveUntil(
-//     MaterialPageRoute(builder: (context) => const LoginPage()),
-//     (route) => false,
-//   );
-// },
+          //           ListTile(
+          //             leading: const Icon(Icons.logout, color: Colors.redAccent),
+          //             title: const Text(
+          //               "Logout",
+          //               style: TextStyle(color: Colors.redAccent, fontWeight: FontWeight.bold),
+          //             ),
+          // //            onTap: () {
+          // //   Navigator.pushAndRemoveUntil(
+          // //     context,
+          // //     MaterialPageRoute(builder: (context) => const LoginPage()),
+          // //     (route) => false,
+          // //   );
+          // // },
+          // onTap: () {
+          //   Navigator.pop(context); // Close the drawer first
+          //   Navigator.of(context, rootNavigator: true).pushAndRemoveUntil(
+          //     MaterialPageRoute(builder: (context) => const LoginPage()),
+          //     (route) => false,
+          //   );
+          // },
 
-
-//           ),
-ListTile(
-  leading: const Icon(Icons.logout, color: Colors.red),
-  title: const Text("Logout", style: TextStyle(color: Colors.red)),
-  onTap: () async {
-    Navigator.pop(context); // Close the drawer first
-    await handleLogout(context); // Then logout
-  },
-),
-
+          //           ),
+          ListTile(
+            leading: const Icon(Icons.logout, color: Colors.red),
+            title: const Text("Logout", style: TextStyle(color: Colors.red)),
+            onTap: () async {
+              Navigator.pop(context); // Close the drawer first
+              await handleLogout(context); // Then logout
+            },
+          ),
         ],
       ),
     );

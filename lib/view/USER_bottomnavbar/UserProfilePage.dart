@@ -7,17 +7,18 @@ class UserProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Profile"),
-        centerTitle: true,
-      ),
+      appBar: AppBar(title: const Text("Profile"), centerTitle: true),
       body: const Center(
         child: Text(
           "User Profile Page Content Here",
           style: TextStyle(fontSize: 20),
         ),
       ),
-      bottomNavigationBar: UserBottomNavBar(parentContext: context, onTabSelected: (index) {  },),
+      bottomNavigationBar: UserBottomNavBar(
+        parentContext: context,
+        onTabSelected: (index) {},
+        selectedIndex: 0,
+      ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }

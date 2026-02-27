@@ -57,7 +57,11 @@ class _SplashScreenState extends State<SplashScreen> {
                   ),
                 ),
                 const SizedBox(height: 20),
-                Image.asset('assets/mentalwell_brain.png', width: 180, height: 180),
+                Image.asset(
+                  'assets/mentalwell_brain.png',
+                  width: 180,
+                  height: 180,
+                ),
                 const SizedBox(height: 20),
                 const Text(
                   "Take Care Of Your Mental Health",
@@ -79,7 +83,11 @@ class _SplashScreenState extends State<SplashScreen> {
                   padding: EdgeInsets.symmetric(horizontal: 32.0),
                   child: Text(
                     "Feeling stressed or anxious? Our app helps you find calm, balance, and mental clarity every day.",
-                    style: TextStyle(fontSize: 15, color: Colors.black54, height: 1.5),
+                    style: TextStyle(
+                      fontSize: 15,
+                      color: Colors.black54,
+                      height: 1.5,
+                    ),
                     textAlign: TextAlign.center,
                   ),
                 ),

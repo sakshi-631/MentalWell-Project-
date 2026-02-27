@@ -16,7 +16,13 @@ class _MoodTrackerPageState extends State<MoodTrackerPage> {
   final TextEditingController notesController = TextEditingController();
 
   final List<String> moods = [
-    "😊 Happy", "😔 Sad", "😡 Angry", "😰 Stressed", "😐 Neutral", "🤩 Excited", "🥱 Tired",
+    "😊 Happy",
+    "😔 Sad",
+    "😡 Angry",
+    "😰 Stressed",
+    "😐 Neutral",
+    "🤩 Excited",
+    "🥱 Tired",
   ];
 
   final Map<String, String> moodInsights = {
@@ -24,9 +30,11 @@ class _MoodTrackerPageState extends State<MoodTrackerPage> {
     "🤩 Excited": "Channel your excitement into productive activities.",
     "😐 Neutral": "Reflect on your day and set small goals.",
     "🥱 Tired": "Rest and recharge. Sleep or a short break can help.",
-    "😰 Stressed": "Try deep breathing, meditation, or a short walk to calm down.",
+    "😰 Stressed":
+        "Try deep breathing, meditation, or a short walk to calm down.",
     "😔 Sad": "Talk to a friend or write in a journal to lift your mood.",
-    "😡 Angry": "Pause and take deep breaths. Physical activity can help release tension.",
+    "😡 Angry":
+        "Pause and take deep breaths. Physical activity can help release tension.",
   };
 
   final List<Map<String, dynamic>> moodLogs = [];
@@ -64,19 +72,26 @@ class _MoodTrackerPageState extends State<MoodTrackerPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text("How are you feeling today?", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
+            const Text(
+              "How are you feeling today?",
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+            ),
             const SizedBox(height: 12),
             Wrap(
               spacing: 10,
               runSpacing: 10,
-              children: moods.map((mood) => ChoiceChip(
-                label: Text(mood),
-                selected: selectedMood == mood,
-                selectedColor: Colors.teal.shade200,
-                onSelected: (selected) {
-                  setState(() => selectedMood = selected ? mood : null);
-                },
-              )).toList(),
+              children: moods
+                  .map(
+                    (mood) => ChoiceChip(
+                      label: Text(mood),
+                      selected: selectedMood == mood,
+                      selectedColor: Colors.teal.shade200,
+                      onSelected: (selected) {
+                        setState(() => selectedMood = selected ? mood : null);
+                      },
+                    ),
+                  )
+                  .toList(),
             ),
             const SizedBox(height: 20),
             TextField(
@@ -84,7 +99,9 @@ class _MoodTrackerPageState extends State<MoodTrackerPage> {
               maxLines: 3,
               decoration: InputDecoration(
                 hintText: "Write something about your mood...",
-                border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
                 filled: true,
                 fillColor: Colors.grey.shade100,
               ),
@@ -97,9 +114,14 @@ class _MoodTrackerPageState extends State<MoodTrackerPage> {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.teal,
                   padding: const EdgeInsets.symmetric(vertical: 14),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
                 ),
-                child: const Text("Save Mood", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                child: const Text(
+                  "Save Mood",
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                ),
               ),
             ),
             const SizedBox(height: 20),
@@ -110,19 +132,48 @@ class _MoodTrackerPageState extends State<MoodTrackerPage> {
                 color: Colors.teal.shade50,
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: Text("💡 Mood Insight: ${getLatestMoodInsight()}", style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
+              child: Text(
+                "💡 Mood Insight: ${getLatestMoodInsight()}",
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
             ),
             const SizedBox(height: 20),
-            const Text("Mood Improvement Tips", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+            const Text(
+              "Mood Improvement Tips",
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
             const SizedBox(height: 12),
             Wrap(
               spacing: 12,
               runSpacing: 12,
               children: [
-                _tipButton(context, "Exercises", Colors.orange, const ExercisePage()),
-                _tipButton(context, "Sleep", Colors.blue, const SleepRelaxationPage()),
-                _tipButton(context, "Nutrition", Colors.green, const NutritionPage()),
-                _tipButton(context, "Relaxation", Colors.purple, const RelaxationPage()),
+                _tipButton(
+                  context,
+                  "Exercises",
+                  Colors.orange,
+                  const ExercisePage(),
+                ),
+                _tipButton(
+                  context,
+                  "Sleep",
+                  Colors.blue,
+                  const MentalWellnessApp(),
+                ),
+                _tipButton(
+                  context,
+                  "Nutrition",
+                  Colors.green,
+                  const NutritionPage(),
+                ),
+                _tipButton(
+                  context,
+                  "Relaxation",
+                  Colors.purple,
+                  const RelaxationPage(),
+                ),
               ],
             ),
           ],
@@ -131,7 +182,12 @@ class _MoodTrackerPageState extends State<MoodTrackerPage> {
     );
   }
 
-  Widget _tipButton(BuildContext context, String title, Color color, Widget page) {
+  Widget _tipButton(
+    BuildContext context,
+    String title,
+    Color color,
+    Widget page,
+  ) {
     return ElevatedButton(
       onPressed: () {
         Navigator.push(context, MaterialPageRoute(builder: (_) => page));
@@ -141,7 +197,10 @@ class _MoodTrackerPageState extends State<MoodTrackerPage> {
         padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 18),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       ),
-      child: Text(title, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+      child: Text(
+        title,
+        style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+      ),
     );
   }
 }

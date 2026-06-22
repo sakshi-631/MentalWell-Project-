@@ -1,7 +1,7 @@
 import os
 from huggingface_hub import hf_hub_download, snapshot_download
 
-HF_REPO = "YOUR_HF_USERNAME/mentalwell-emotion-model"
+HF_REPO = "Sammm3/mentalwell-emotion-model"
 LOCAL_PATH = "models/mentalwell_emotion_model_final"
 
 def download_models():

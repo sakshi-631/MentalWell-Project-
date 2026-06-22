@@ -2066,21 +2066,21 @@ class ExpertAdvicePage extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: 10),
-              Expanded(
-                child: ElevatedButton.icon(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.purple,
-                    foregroundColor: Colors.white,
-                    padding: const EdgeInsets.symmetric(vertical: 14),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                  ),
-                  icon: const Icon(Icons.calendar_today),
-                  label: const Text("Book"),
-                  onPressed: () => showAppointmentMessage(context, doctor),
-                ),
-              ),
+              // Expanded(
+              //   child: ElevatedButton.icon(
+              //     style: ElevatedButton.styleFrom(
+              //       backgroundColor: Colors.purple,
+              //       foregroundColor: Colors.white,
+              //       padding: const EdgeInsets.symmetric(vertical: 14),
+              //       shape: RoundedRectangleBorder(
+              //         borderRadius: BorderRadius.circular(16),
+              //       ),
+              //     ),
+              //     icon: const Icon(Icons.calendar_today),
+              //     label: const Text("Book"),
+              //     onPressed: () => showAppointmentMessage(context, doctor),
+              //   ),
+              // ),
             ],
           ),
         ],
@@ -2155,7 +2155,7 @@ class ExpertAdvicePage extends StatelessWidget {
         backgroundColor: const Color(0xffF4F7F9),
         appBar: AppBar(
           title: const Text("Expert Advice"),
-          backgroundColor: const Color(0xff6C9BCF),
+          backgroundColor: const Color(0xFF7C6CF6),
           elevation: 0,
           bottom: const TabBar(
             indicatorColor: Colors.white,

@@ -423,7 +423,8 @@ class _AdminHomePageState extends State<AdminHomePage> {
                   backgroundColor: Colors.white,
                   backgroundImage: widget.profileImage != null
                       ? FileImage(widget.profileImage!)
-                      : const AssetImage('assets/admin.png') as ImageProvider,
+                      : const AssetImage('assets/adminimage.jpg')
+                            as ImageProvider,
                 ),
                 const SizedBox(width: 14),
                 Expanded(

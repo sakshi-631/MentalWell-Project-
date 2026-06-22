@@ -625,7 +625,11 @@ class ExercisePage extends StatelessWidget {
         background: Container(
           decoration: const BoxDecoration(
             gradient: LinearGradient(
-              colors: [Color(0xFF1B5E20), Color(0xFF43A047)],
+              // colors: [Color(0xFF1B5E20), Color(0xFF43A047)],
+              colors: [
+                Color.fromARGB(255, 103, 88, 209),
+                Color.fromARGB(255, 145, 134, 230),
+              ],
             ),
           ),
           child: Icon(

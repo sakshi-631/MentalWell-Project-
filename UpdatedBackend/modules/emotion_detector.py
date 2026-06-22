@@ -57,6 +57,27 @@ class EmotionDetector:
             self.model.save_pretrained(model_path)
             print(f"✅ Model cached locally at: {model_path}")
 
+        self.model.to(device)
+        self.model.eval()
+        
+        mapping_file = os.path.join(model_path, "emotion_mapping.json")
+        
+        with open(mapping_file, "r") as f:
+            emotion_data = json.load(f)
+        
+        self.id2emotion = {
+            int(k): v
+            for k, v in emotion_data["id2emotion"].items()
+        }
+        
+        self.emotion2id = {
+            v: int(k)
+            for k, v in emotion_data["id2emotion"].items()
+        }
+        
+        print(f"✅ Emotion Detector loaded on {device}")
+        print(f"   Emotions: {list(self.emotion2id.keys())}")
+
     # Don't forget to add 'import os' at the top of the file 
     def predict(self, text):
         """

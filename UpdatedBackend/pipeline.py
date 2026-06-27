@@ -26,12 +26,12 @@ class MentalHealthChatbot:
         
         if verbose:
             print("\n" + "="*70)
-            print("🚀 Initializing MentalHealth Chatbot Pipeline")
+            print("ðŸš€ Initializing MentalHealth Chatbot Pipeline")
             print("="*70)
         
         # Module 1: Emotion Detection
         if verbose:
-            print("\n📦 Loading Module 1: Emotion Detection...")
+            print("\nðŸ“¦ Loading Module 1: Emotion Detection...")
         # self.emotion_detector = EmotionDetector(
         #     model_path='./mentalwell_emotion_model_final',
         #     device=device
@@ -43,36 +43,36 @@ class MentalHealthChatbot:
         
         # Module 2: Sentiment & Intensity Analysis
         if verbose:
-            print("\n📦 Loading Module 2: Sentiment & Intensity Analysis...")
+            print("\nðŸ“¦ Loading Module 2: Sentiment & Intensity Analysis...")
         self.sentiment_analyzer = SentimentAnalyzer(device=device)
         
         # Module 3: Risk Detection (rule-based, lightweight)
         if verbose:
-            print("\n📦 Loading Module 3: Risk Detection...")
+            print("\nðŸ“¦ Loading Module 3: Risk Detection...")
         self.risk_detector = RiskDetectionModel()
         if verbose:
-            print("✅ Risk Detection loaded")
+            print("âœ… Risk Detection loaded")
         
         # Module 4: Relief Activity Mapper (rule-based)
         if verbose:
-            print("\n📦 Loading Module 4: Relief Activity Mapper...")
+            print("\nðŸ“¦ Loading Module 4: Relief Activity Mapper...")
         self.relief_mapper = ReliefMapper()
         if verbose:
-            print("✅ Relief Mapper loaded")
+            print("âœ… Relief Mapper loaded")
         
         # Module 5: Response Generator (template-based)
         if verbose:
-            print("\n📦 Loading Module 5: Response Generator...")
+            print("\nðŸ“¦ Loading Module 5: Response Generator...")
         self.response_generator = ResponseGenerator()
         if verbose:
-            print("✅ Response Generator loaded")
+            print("âœ… Response Generator loaded")
         
         # Conversation state
         self.conversation_history = []
         
         if verbose:
             print("\n" + "="*70)
-            print("✨ MentalHealth Chatbot Ready!")
+            print("âœ¨ MentalHealth Chatbot Ready!")
             print("="*70 + "\n")
     
     def process(self, user_text: str, include_metadata=True) -> Dict:
@@ -103,12 +103,12 @@ class MentalHealthChatbot:
         # STEP 1: Emotion Detection
         emotion, emotion_conf, emotion_probs = self.emotion_detector.predict(user_text)
         if self.verbose:
-            print(f"✓ Module 1: Emotion = {emotion} ({emotion_conf:.1%})")
+            print(f"âœ“ Module 1: Emotion = {emotion} ({emotion_conf:.1%})")
         
         # STEP 2: Sentiment & Intensity Analysis
         sentiment_data = self.sentiment_analyzer.analyze(user_text)
         if self.verbose:
-            print(f"✓ Module 2: Sentiment = {sentiment_data['sentiment']}, "
+            print(f"âœ“ Module 2: Sentiment = {sentiment_data['sentiment']}, "
                   f"Intensity = {sentiment_data['intensity']:.3f}")
         
         # STEP 3: Risk Detection
@@ -119,7 +119,7 @@ class MentalHealthChatbot:
             intensity=sentiment_data['intensity']
         )
         if self.verbose:
-            print(f"✓ Module 3: Risk = {risk_data['risk_level']} "
+            print(f"âœ“ Module 3: Risk = {risk_data['risk_level']} "
                   f"(score: {risk_data['risk_score']:.3f})")
         
         # STEP 4: Relief Activity Mapping
@@ -131,7 +131,7 @@ class MentalHealthChatbot:
         )
         if self.verbose:
             num_activities = len(relief_data.get('primary_recommendation', []))
-            print(f"✓ Module 4: Mapped {num_activities} relief activities")
+            print(f"âœ“ Module 4: Mapped {num_activities} relief activities")
         
         # STEP 5: Response Generation
         response = self.response_generator.generate_response(
@@ -142,15 +142,23 @@ class MentalHealthChatbot:
             intensity=sentiment_data['intensity'],
             risk_level=risk_data['risk_level'],
             crisis_indicators=risk_data.get('crisis_indicators', []),
-            relief_activities=relief_data
+            relief_activities=relief_data,
+            conversation_history=self.conversation_history[-3:],  # last 3 turns
         )
         if self.verbose:
-            print(f"✓ Module 5: Response generated")
+            print(f"âœ“ Module 5: Response generated")
         
         processing_time = time.time() - start_time
         
+        # Save to history so next turn has context (always, not just via chat())
+        self.conversation_history.append({
+            'user': user_text,
+            'bot': response,
+            'timestamp': time.time()
+        })
+        
         if self.verbose:
-            print(f"\n⚡ Processing time: {processing_time:.2f}s")
+            print(f"\nâš¡ Processing time: {processing_time:.2f}s")
             print(f"{'='*70}\n")
         
         # Prepare result
@@ -182,14 +190,6 @@ class MentalHealthChatbot:
         Returns only the response string
         """
         result = self.process(user_text, include_metadata=False)
-        
-        if save_history:
-            self.conversation_history.append({
-                'user': user_text,
-                'bot': result['response'],
-                'timestamp': time.time()
-            })
-        
         return result['response']
     
     def batch_process(self, texts: List[str], batch_size=8) -> List[Dict]:
@@ -200,7 +200,7 @@ class MentalHealthChatbot:
         results = []
         total = len(texts)
         
-        print(f"\n📊 Batch processing {total} texts...")
+        print(f"\nðŸ“Š Batch processing {total} texts...")
         
         for i in range(0, total, batch_size):
             batch = texts[i:i+batch_size]
@@ -210,9 +210,9 @@ class MentalHealthChatbot:
                 results.append(result)
             
             processed = min(i + batch_size, total)
-            print(f"   ✓ Processed {processed}/{total}")
+            print(f"   âœ“ Processed {processed}/{total}")
         
-        print("✅ Batch processing complete!\n")
+        print("âœ… Batch processing complete!\n")
         return results
     
     def get_conversation_summary(self) -> Dict:
@@ -230,7 +230,7 @@ class MentalHealthChatbot:
     def clear_history(self):
         """Clear conversation history"""
         self.conversation_history = []
-        print("✅ Conversation history cleared")
+        print("âœ… Conversation history cleared")
     
     def set_verbose(self, verbose: bool):
         """Enable/disable verbose output"""
@@ -244,7 +244,7 @@ class MentalHealthChatbot:
 def quick_test():
     """Quick test of the pipeline"""
     print("\n" + "="*70)
-    print("🧪 QUICK PIPELINE TEST")
+    print("ðŸ§ª QUICK PIPELINE TEST")
     print("="*70)
     
     # Initialize
@@ -264,16 +264,16 @@ def quick_test():
         
         result = chatbot.process(text)
         
-        print("\n" + "─"*70)
+        print("\n" + "â”€"*70)
         print("RESPONSE:")
-        print("─"*70)
+        print("â”€"*70)
         print(result['response'][:300] + "...\n")
         
         if result.get('metadata'):
             meta = result['metadata']
-            print(f"📊 Emotion: {meta['emotion']} ({meta['emotion_confidence']:.1%})")
-            print(f"📊 Risk: {meta['risk_level']} (score: {meta['risk_score']:.3f})")
-            print(f"⚡ Time: {result['processing_time']:.2f}s")
+            print(f"ðŸ“Š Emotion: {meta['emotion']} ({meta['emotion_confidence']:.1%})")
+            print(f"ðŸ“Š Risk: {meta['risk_level']} (score: {meta['risk_score']:.3f})")
+            print(f"âš¡ Time: {result['processing_time']:.2f}s")
 
 
 # ============================================================================
@@ -283,7 +283,7 @@ def quick_test():
 def interactive_chat():
     """Start interactive chat session"""
     print("\n" + "="*70)
-    print("🤖 MentalHealth Chatbot - Interactive Mode")
+    print("ðŸ¤– MentalHealth Chatbot - Interactive Mode")
     print("="*70)
     print("Type 'quit' to exit, 'history' to see conversation\n")
     
@@ -296,16 +296,16 @@ def interactive_chat():
             continue
         
         if user_input.lower() in ['quit', 'exit', 'bye']:
-            print("\n💙 Take care! Remember, help is always available.")
+            print("\nðŸ’™ Take care! Remember, help is always available.")
             summary = chatbot.get_conversation_summary()
             if summary.get('total_messages', 0) > 0:
-                print(f"\n📊 Session summary: {summary['total_messages']} messages, "
+                print(f"\nðŸ“Š Session summary: {summary['total_messages']} messages, "
                       f"{summary['duration_minutes']:.1f} minutes")
             break
         
         if user_input.lower() == 'history':
             summary = chatbot.get_conversation_summary()
-            print(f"\n📊 Conversation history: {summary['total_messages']} messages")
+            print(f"\nðŸ“Š Conversation history: {summary['total_messages']} messages")
             continue
         
         # Get response
